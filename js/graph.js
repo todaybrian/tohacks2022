@@ -1,55 +1,25 @@
-class AdjList {
-    constructor() {
-        this.list = {};
-    }
-
-    get(u) {
-        if (!(u in this.list)) {
-            this.list[u] = [];
-        }
-        return this.list[u];
-    }
-
-    addEdge(u, v) {
-        // add directed edge u -> v
-        this.get(u).push(v);
-    }
-}
-
-class Node {
-    constructor(id, x, y) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-    }
-
-    get elem() {
-        let elem = document.getElementById(`node${this.id}`);
-        console.log(`node${this.id}`);
-        if (!elem) {
-            // create elem
-        }
-        return elem;
-    }
-
-    get midX() {
-        return this.elem.offsetLeft + this.elem.offsetWidth/2;
-    }
-    
-    get midY() {
-        return this.elem.offsetTop + this.elem.offsetHeight/2;
-    }
-}
-
 class Graph {
     constructor() {
         this.adjList = new AdjList();
         this.nodes = {};
     }
 
+    addEdge(node1Id, node2Id) {
+        // adds directed edge u -> v
+        this.adjList.addEdge(node1Id, node2Id);
+    }
+
+    addNode(id, x=0, y=0) {
+        this.nodes[id] = new Node(id, x, y);
+        this.makeNodeDraggable(this.nodes[id]);
+    }
+
+    getNode(id) {
+        return this.nodes[id];
+    }
+
     onNodeDrag(node) {
-        // called when node is dragged
-        console.log(node);
+        // called when a node is dragged
         let lineElem = getEdgeLine(1, 2);
         setEdgeLinePoints(lineElem, 0, 0, node.midX, node.midY);
     }
@@ -90,11 +60,5 @@ class Graph {
 
         (document.getElementById(elem.id + "_drag") || elem).onmousedown = onMouseDown;
     }
-
-    addNode(id, x=0, y=0) {
-        this.nodes[id] = new Node(id, x, y);
-        this.makeNodeDraggable(this.nodes[id]);
-    }
-
 }
 
