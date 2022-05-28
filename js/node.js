@@ -7,7 +7,6 @@ class Node {
 
     get elem() {
         let elem = document.getElementById(`node${this.id}`);
-        console.log(`node${this.id}`);
         if (!elem) {
             // create elem
         }
