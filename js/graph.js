@@ -17,6 +17,16 @@ class Graph {
         setEdgeLinePoints(lineElem, node1.midX, node1.midY, node2.midX, node2.midY);
     }
 
+    removeEdge(node1Id, node2Id) {
+        // removes directed edge node1Id -> node2Id
+        this.children.removeEdge(node1Id, node2Id);
+        this.parents.removeEdge(node2Id, node1Id);
+
+        // remove edge line
+        let lineElem = getEdgeLine(node1Id, node2Id);
+        lineElem.remove();
+    }
+
     addNode(id, x=0, y=0) {
         this.nodes[id] = new Node(id, x, y);
         this.makeNodeDraggable(this.nodes[id]);
