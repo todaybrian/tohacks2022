@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>title</title>
@@ -15,6 +16,17 @@
                 node 1
             </div>
         </div>
+        <svg height="100%" width="100%">
+            <defs>
+                <marker id="arrow" markerWidth="13" markerHeight="13" refX="2" refY="6"
+                    orient="auto">
+                    <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+                </marker>
+            </defs>
+    
+            <polyline points="0,0 100,50 200,100" class="line"/>
+            <polyline points="300,0 400,50 500,100" class="line"/>
+        </svg>
         <script src="main.js"></script>
     </body>
 </html>

@@ -1,5 +1,5 @@
 * {
-    font-family: Arial
+    font-family: monospace
 }
 
 .node {
@@ -13,6 +13,16 @@
     padding: 10px;
     cursor: move;
     z-index: 11;
-    background-color: #2196f3;
-    color: white;
+    background-color: #white;
+    color: black;
+}
+
+.line {
+    stroke: black;
+    stroke-width: 1;
+    marker-mid: url(#arrow);
+}
+
+#arrow {
+    fill: black;
 }
