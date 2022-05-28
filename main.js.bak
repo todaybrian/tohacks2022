@@ -1,0 +1,114 @@
+class Context {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+    }
+
+    drawCircle(x, y, r, fillColour='#ddd', lineColour='#222', lineWidth=3) {
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, r, 0, 2*Math.PI, false);
+        this.ctx.fillStyle = fillColour;
+        this.ctx.fill();
+        this.ctx.lineWidth = lineWidth;
+        this.ctx.strokeStyle = lineColour;
+        this.ctx.stroke();
+    }
+
+    drawLine(x1, y1, x2, y2, width=6, colour='#222') {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.lineWidth = width;
+        this.ctx.strokeStyle = colour;
+        this.ctx.stroke();
+    }
+}
+
+ctx = new Context(document.getElementById("canvas"));
+
+class Point {
+    constructor(id, x=100, y=100) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class AdjList {
+    constructor() {
+        this.list = {};
+    }
+
+    get(u) {
+        if (u instanceof Point) {
+            u = u.id;
+        }
+        if (!(u in this.list)) {
+            this.list[u] = [];
+        }
+        return this.list[u];
+    }
+
+    addEdge(u, v) {
+        if (v instanceof Point) {
+            v = v.id;
+        }
+        this.get(u).push(v);
+    }
+}
+
+class Graph {
+    constructor() {
+        this.points = {};
+        this.adjList = new AdjList();
+        this.latestId = 0;
+    }
+
+    addEdge(u, v) {
+        this.adjList.addEdge(u, v);
+    }
+
+    //addEdge(p1, p2) {
+        //[p1, p2].forEach(p => {
+            //if (!(p in this.points)) {
+                //this.addPoint(p);
+            //}
+        //});
+        //this.adjList.addEdge(p1, p2);
+    //}
+
+    addPoint(p) {
+        this.points[p.id] = p;
+    }
+
+    render() {
+        for (const [key, p] of Object.entries(this.points)) {
+            for (const p2Id of this.adjList.get(p.id)) {
+                const p2 = this.points[p2Id];
+                ctx.drawLine(p.x, p.y, p2.x, p2.y);
+            }
+        }
+        for (const [key, p] of Object.entries(this.points)) {
+            ctx.drawCircle(p.x, p.y, 20);
+        }       
+    }
+}
+
+
+g = new Graph();
+
+ps = [new Point(1, 50, 50), new Point(2, 100, 100), new Point(3, 150, 30)];
+
+for (const p of ps) {
+    g.addPoint(p);
+}
+
+g.addEdge(1, 2);
+g.addEdge(2, 3);
+
+
+g.render();
+
+console.log(g);
+
+

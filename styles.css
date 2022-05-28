@@ -1,0 +1,18 @@
+* {
+    font-family: Arial
+}
+
+.node {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 10;
+}
+
+.node_header {
+    padding: 10px;
+    cursor: move;
+    z-index: 11;
+    background-color: #2196f3;
+    color: white;
+}
