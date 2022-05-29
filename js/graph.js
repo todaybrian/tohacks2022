@@ -26,51 +26,24 @@ class Graph {
         let lineElem = getEdgeLine(node1Id, node2Id);
         lineElem.remove();
     }
+
     addNodeContextMenu(node) {
-        node.elem.oncontextmenu = (e) => {
-            node.isContextMenued = true;
-            e.preventDefault();
-
-            let ctxMenu = document.createElement('div');
-            ctxMenu.setAttribute('id', 'context_menu');
-            ctxMenu.style.left = `${e.pageX}px`;
-            ctxMenu.style.top = `${e.pageY}px`;
-
-            function exitMenu() {
-                ctxMenu.remove();
-                ctxExit.style.display = 'none';
-                node.isContextMenued = false;
-            }
-
-            function addButton(innerText, onclick) {
-                let btn = document.createElement('button');
-                btn.innerText = innerText;
-                btn.onclick = () => {
-                    onclick();
-                    exitMenu();
-                }
-                ctxMenu.appendChild(btn);
-            }
-
-            addButton("Mark as done", () => {
-                console.log('done button');
-            });
-
-            addButton("Edit", () => {
-                console.log('edit button');
-            });
-
-            addButton("Delete", () => {
-                console.log('delete button');
-            });
-
-            let ctxExit = document.getElementById("context_menu_exit");
-            ctxExit.style.display = 'inline';
-
-            ctxExit.onclick = exitMenu;
-
-            document.body.appendChild(ctxMenu);
-        }
+        addContextMenu(
+            node.elem,
+            [
+                new Button('Mark as done', () => {
+                    console.log('done button');
+                }),
+                new Button('Edit', () => {
+                    console.log('edit button');
+                }),
+                new Button('Delete', () => {
+                    console.log('delete button');
+                })
+            ],
+            () => { node.isContextMenued = false },
+            () => { node.isContextMenued = true }
+        );
     }
 
     addNode(id, x=300, y=300, state=false) {
