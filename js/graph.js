@@ -373,7 +373,7 @@ class Graph {
         (elemDrag || elem).style.textDecoration = 'none';
         (elemDrag || elem).onmousedown = onMouseDown;
     }
-
+    /*
     arrangeAsTree() {
         let len = Object.keys(this.nodes).length;
         let arr = Array.from(Array(len));
@@ -400,13 +400,61 @@ class Graph {
             });
         }
         // now we know the levels, so we should sort the nodes based on the levels
-    }
+    }*/
 
     edgeCreatesCycle(u, v) {
         // returns true if adding edge u -> v creates a cycle
+        // add edge, use top sort / dfs to detect cycles, and if present then remove the edge
+        this.children.addEdge(u, v);
+        this.parents.addEdge(v, u);
 
-        // to be implemented
-        return false;
+        var adj = this.children;
+        var n = this.nodesSize;
+        var topsort = [], stk = [];
+        var vis = Array(n).fill(false);
+        // dfs for topsort
+        function dfs(node)  {
+            adj.get(node).forEach(i =>   {
+                if (vis[i] == false)    {
+                    vis[i] = true;
+                    dfs(i);
+                }
+            });
+            stk.push(node);
+        }
+        function isCyclic() {
+            // use stack to construct topological order
+            var pos = new Map();
+            var ind = 0;
+            while (stk.length > 0)    {
+                pos.set(stk[stk.length-1], ind++);
+                topsort.push(stk[stk.length-1]);
+                stk.pop();
+            }
+            // check if ordering is valid 
+            // if invalid, then topological sort failed, (there is a cycle)
+            var cyclic = false;
+            for (var i = 0; i < n; i++)    {
+                adj.get(i).forEach(j =>   {
+                    // if the current nodes position is later than a child's index, then there was a cycle
+                    // ie position of i > position of j (i is parent of j, yet is later than)
+                    if ((pos.has(i)?pos.get(i):0) > 
+                        (pos.has(j)?pos.get(j):0))  {
+                        cyclic = true;
+                    }
+                });
+            }
+            return cyclic;
+        }
+        // construct stack for topsort with dfs
+        for (var i = 0; i < n; i++)    {
+            if (vis[i] == false)    {
+                dfs(i);
+            }
+        }
+        this.children.removeEdge(u, v);
+        this.parents.removeEdge(v, u);
+        return isCyclic();
     }
 
     addName(name) {
