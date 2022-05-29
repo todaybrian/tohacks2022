@@ -1,7 +1,15 @@
 class Button {
     constructor(text, onClick) {
-        this.text = text;
+        if (typeof text === 'string' || text instanceof String) {
+            this.textFunc = () => text;
+        } else {
+            this.textFunc = text;
+        }
         this.onClick = onClick;
+    }
+
+    get text() {
+        return this.textFunc();
     }
 }
 
