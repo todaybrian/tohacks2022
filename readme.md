@@ -3,7 +3,7 @@
 
 ----
 
-![logo](./img/logo.svg)  
-Parallelize, a web application to organize tasks, and boost productivity. 
+![logo](./img/Banner.png)
+### Organize and parallelize your tasks for greater productivity
 
 Built with HTML, CSS, JS and Tailwind.
