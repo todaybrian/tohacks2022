@@ -403,20 +403,21 @@ class Graph {
 
     edgeCreatesCycle(u, v) {
         // returns true if adding edge u -> v creates a cycle
-        // add edge, use top sort to detect cycles, and if present then remove it
+        // add edge, use top sort / dfs to detect cycles, and if present then remove the edge
         this.children.addEdge(u, v);
         this.parents.addEdge(v, u);
+
         var adj = this.children;
         var n = this.nodesSize;
-        var topsort = [];
-        var stk = [];
+        var topsort = [], stk = [];
         var vis = Array(n).fill(false);
         // dfs for topsort
         function dfs(node)  {
-            vis[node] = true;
             adj.get(node).forEach(i =>   {
-                if (vis[i] == false)
+                if (vis[i] == false)    {
+                    vis[i] = true;
                     dfs(i);
+                }
             });
             stk.push(node);
         }
@@ -434,23 +435,25 @@ class Graph {
             var cyclic = false;
             for (var i = 0; i < n; i++)    {
                 adj.get(i).forEach(j =>   {
-                    if ((pos.has(i)?pos.get(i):0) > (pos.has(j)?pos.get(j):0))  {
+                    // if the current nodes position is later than a child's index, then there was a cycle
+                    // ie position of i > position of j (i is parent of j, yet is later than)
+                    if ((pos.has(i)?pos.get(i):0) > 
+                        (pos.has(j)?pos.get(j):0))  {
                         cyclic = true;
                     }
-                })
+                });
             }
             return cyclic;
         }
+        // construct stack for topsort with dfs
         for (var i = 0; i < n; i++)    {
             if (vis[i] == false)    {
                 dfs(i);
             }
         }
-        if (isCyclic()) {
-            this.children.removeEdge(u, v);
-            this.parents.removeEdge(v, u);
-            return true;
-        } else  return false;
+        this.children.removeEdge(u, v);
+        this.parents.removeEdge(v, u);
+        return isCyclic();
     }
 }
 
