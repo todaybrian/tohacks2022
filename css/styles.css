@@ -28,6 +28,11 @@
     cursor: pointer;
 }
 
+.node_done {
+    filter: grayscale(20%) brightness(70%);
+    text-decoration: line-through;
+}
+
 .node_selected {
     border: 2px solid rgba(0,0,0,0.5);
     /*margin-left: -2px;*/

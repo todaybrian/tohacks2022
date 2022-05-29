@@ -1,12 +1,26 @@
 class Node {
-    constructor(id, x, y, state, displayText, color='white') {
+    constructor(id, x, y, isDone, displayText, color='white') {
         this.id = id;
         this.x = x;
         this.y = y;
-        this.state = state;
+        this._isDone = isDone;
         this.color = color;
         this.isContextMenued = false;
+        this._displayText = '';
         this.displayText = displayText;
+    }
+
+    get isDone() {
+        return this._isDone;
+    }
+
+    set isDone(state) {
+        if (state) {
+            this.elem.classList.add("node_done");
+        } else {
+            this.elem.classList.remove("node_done");
+        }
+        this._isDone = state;
     }
 
     get color() {

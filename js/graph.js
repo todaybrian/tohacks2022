@@ -252,8 +252,8 @@ class Graph {
                         || this.children.get(this.selectedNode).has(node.id))
                         && node.id != this.selectedNode),
 
-                new Button(() => (node.elemState ? 'Mark as incomplete' : 'Mark as done'), () => {
-                    node.state = !node.state;
+                new Button(() => (node.isDone ? 'Mark as incomplete' : 'Mark as done'), () => {
+                    node.isDone = !node.isDone;
                     //node.elemDrag.setAttribute('style', `background-color: rgba(57, 182, 190, ${(0.4 - (node.elemState ? 0.2 : 0))})`);
                     console.log('done button');
                 }),
