@@ -40,33 +40,90 @@
 
         <!--<polyline points="0,0 100,50 200,100" class="edge"/>-->
     </svg>
-    <!-- Add Node-->
-    <div tabindex="-1" aria-hidden="true" x-show="open_add_node"
+
+    <div tabindex="-1" aria-hidden="true"
         class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full bg-black/30" id="add-node">
         <div class="flex top-0 left-0 p-4 w-full h-full justify-center align-middle">
             <div class=" max-w-3xl z-[999] m-auto ">
-                <div class="card">
-                    <div class="card-header">Add Node</div>
-                    <form action="javascript:void(0);" id="add_node_form">
-                        <div class="card-body">
-                            <label for="text">Text:</label>
-                            <input
-                                class="shadow rounded w-full mb-3 py-2 px-3 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                placeholder="Add text here" name="text">
-                            <label for="color">Color:</label>
-                            <input type="text" name="color" value="#80deea" data-coloris>
+                <div class="card" id="add-node-card">
+                    <div class="card-header">Task</div>
+
+                    <textarea id="add-node-textarea"></textarea>
+
+                    <div id="add-node-footer">
+                        <div class="p-10">
+                            <button class="color-btn" id="color-btn0"></button>
+                            <button class="color-btn" id="color-btn1"></button>
+                            <button class="color-btn" id="color-btn2"></button>
+                            <button class="color-btn" id="color-btn3"></button>
+                            <button class="color-btn" id="color-btn4"></button>
                         </div>
-                        <div class="justify-end card-footer">
-                            <a href="#" class="btn btn-link btn-sm" name="cancel"
-                                x-on:click="open_add_node = false">Cancel</a>
-                            <button class="btn btn-light-primary btn-sm" name="addnode" type="submit"
-                                x-on:click="open_add_node = false">Add</button>
+                        <div class="flex">
+                            <button id="add-node-cancel" class="min-btn">
+                                Cancel
+                            </button>
+                            <button id="add-node-submit" class="min-btn">
+                                Add
+                            </button>
                         </div>
-                    </form>
+                        
+                        <!--<button class="btn btn-primary btn-sm" id="add-note-submit">-->
+                            <!--ballser-->
+                        <!--</button>-->
+                    </div>
+                    
+
+                    <!--<form action="javascript:void(0);" id="add_node_form">-->
+                        <!--<div class="card-body">-->
+                            <!--<label for="text">Text:</label>-->
+                            <!--<input-->
+                                <!--class="shadow rounded w-full mb-3 py-2 px-3 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"-->
+                                <!--placeholder="Add text here" name="text">-->
+                            <!--<label for="color">Color:</label>-->
+                            <!--<input type="text" name="color" value="#80deea" data-coloris>-->
+                        <!--</div>-->
+                        <!--<div class="justify-end card-footer">-->
+                            <!--<a href="#" class="btn btn-link btn-sm" name="cancel"-->
+                                <!--x-on:click="open_add_node = false">Cancel</a>-->
+                            <!--<button class="btn btn-light-primary btn-sm" name="addnode" type="submit"-->
+                                <!--x-on:click="open_add_node = false">Add</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
                 </div>
             </div>
         </div>
     </div>
+
+
+    <!-- Add Node-->
+    <!--<div tabindex="-1" aria-hidden="true" x-show="open_add_node"-->
+        <!--class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full bg-black/30" id="add-node">-->
+        <!--<div class="flex top-0 left-0 p-4 w-full h-full justify-center align-middle">-->
+            <!--<div class=" max-w-3xl z-[999] m-auto ">-->
+                <!--<div class="card">-->
+                    <!--<div class="card-header">Add task</div>-->
+                    <!--<form action="javascript:void(0);" id="add_node_form">-->
+                        <!--<div class="card-body">-->
+                            <!--<label for="text">Text:</label>-->
+                            <!--<input-->
+                                <!--class="shadow rounded w-full mb-3 py-2 px-3 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"-->
+                                <!--placeholder="Add text here" name="text">-->
+                            <!--<label for="color">Color:</label>-->
+                            <!--<input type="text" name="color" value="#80deea" data-coloris>-->
+                        <!--</div>-->
+                        <!--<div class="justify-end card-footer">-->
+                            <!--<a href="#" class="btn btn-link btn-sm" name="cancel"-->
+                                <!--x-on:click="open_add_node = false">Cancel</a>-->
+                            <!--<button class="btn btn-light-primary btn-sm" name="addnode" type="submit"-->
+                                <!--x-on:click="open_add_node = false">Add</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/kutty@latest/dist/kutty.min.js"></script>
     <script src="js/queue.js"></script>

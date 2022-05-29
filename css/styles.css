@@ -41,8 +41,64 @@
     padding: 10px;
     cursor: move;
     z-index: 11;
-    background-color: rgba(57, 182, 190, 0.4);
+    /*background-color: rgba(57, 182, 190, 0.4);*/
     color: black;
+}
+
+#add-node-card {
+    border: 0px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+}
+
+#add-node-textarea {
+    width: 400px;
+    height: 150px;
+    /*border: 1px dashed red;*/
+    border: 0px;
+    vertical-align: text-top;
+    resize: none;
+    outline: none;
+}
+
+#add-node-textarea:selected {
+    border: 0px;
+}
+
+#add-node {
+    display: none;
+}
+
+#add-node-submit {
+    width: 50px;
+}
+
+.color-btn {
+    padding: 8px;
+    border-radius: 5px;
+    height: 20px;
+    width: 20px;
+}
+.color-btn:hover {
+    filter: brightness(80%);
+}
+
+#add-node-footer {
+    /*padding: 8px;*/
+    padding: 1px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    /*text-align: right;*/
+    /*display: inline-block;*/
+    padding-right: 5px;
+    padding-left: 10px;
+}
+
+#add-node-cancel {
+    width: 60px;
+}
+#add-node-submit {
+    width: 60px;
 }
 
 #color_picker {
@@ -68,7 +124,7 @@
     z-index: 101;
 }
 
-#context_menu button {
+.min-btn {
     width: 100%;
     font-size: 12px;
     padding: 10px;
@@ -77,15 +133,15 @@
     cursor: pointer;
 }
 
-#context_menu button:hover:not([disabled]) {
+.min-btn:hover:not([disabled]) {
     text-decoration: underline;
 }
 
-#context_menu button:active:not([disabled]) {
+.min-btn:active:not([disabled]) {
     background-color: #ccc;
 }
 
-#context_menu button:disabled {
+.min-btn:disabled {
     color: #bbb;
     cursor: not-allowed;
 }

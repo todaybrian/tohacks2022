@@ -1,12 +1,12 @@
 class Node {
-    constructor(id, x, y, state, displayText, color) {
+    constructor(id, x, y, state, displayText, color='white') {
         this.id = id;
         this.x = x;
         this.y = y;
         this.state = state;
-        this._color = color;
+        this.color = color;
         this.isContextMenued = false;
-        this._displayText = displayText;
+        this.displayText = displayText;
     }
 
     get color() {
@@ -14,13 +14,15 @@ class Node {
     }
 
     set color(color) {
+        this.elem.style.backgroundColor = color;
         this._color = color;
-        if (color === 'none') {
-            console.log(color);
-            this.elemColor.setAttribute('style', 'display:none');
-        } else {
-            this.elemColor.setAttribute('style', `background-color: ${color}`);
-        }
+        //this._color = color;
+        //if (color === 'none') {
+            //console.log(color);
+            //this.elemColor.setAttribute('style', 'display:none');
+        //} else {
+            //this.elemColor.setAttribute('style', `background-color: ${color}`);
+        //}
     }
 
     get displayText() {
@@ -28,6 +30,7 @@ class Node {
     }
 
     set displayText(displayText) {
+        this.elemDrag.innerText = displayText;
         this._displayText = displayText;
     }
 
@@ -45,28 +48,28 @@ class Node {
         drag.innerText = this._displayText;
         elem.appendChild(drag);
 
-        let color = document.createElement('div');
-        color.setAttribute('class', 'node_color');
-        color.setAttribute('id', `node${this.id}_color`);
+        //let color = document.createElement('div');
+        //color.setAttribute('class', 'node_color');
+        //color.setAttribute('id', `node${this.id}_color`);
 
-        color.onclick = () => {
-            let picker = document.getElementById('color_picker');
-            picker.setAttribute('styles', 'display: inline');
-        }
+        //color.onclick = () => {
+            //let picker = document.getElementById('color_picker');
+            //picker.setAttribute('styles', 'display: inline');
+        //}
 
-        elem.appendChild(color);
+        //elem.appendChild(color);
 
-        elem.onmouseover = () => {
-            if (this.color === 'none') {
-                this.elemColor.setAttribute('style', `background-color: white`);
-            }
-        }
+        //elem.onmouseover = () => {
+            //if (this.color === 'none') {
+                //this.elemColor.setAttribute('style', `background-color: white`);
+            //}
+        //}
 
-        elem.onmouseout = () => {
-            if (this.color === 'none') {
-                this.elemColor.setAttribute('style', `display: none`);
-            }
-        }
+        //elem.onmouseout = () => {
+            //if (this.color === 'none') {
+                //this.elemColor.setAttribute('style', `display: none`);
+            //}
+        //}
 
         document.getElementById("nodes").appendChild(elem);
         this.color = this._color;

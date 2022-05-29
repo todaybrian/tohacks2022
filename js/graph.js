@@ -21,49 +21,31 @@ class Graph {
             document.getElementById('nodes'),
             [
                 new Button('Add task', (e) => {
-                    window.addNodeLocX = e.pageX;
-                    window.addNodeLocY = e.pageY;
-                    //this.addNode(this.index++, e.pageX, e.pageY);
-                    window.document.body.__x.$data.open_add_node = true;
+                    //window.addNodeLocX = e.pageX;
+                    //window.addNodeLocY = e.pageY;
+                    ////this.addNode(this.index++, e.pageX, e.pageY);
+                    //window.document.body.__x.$data.open_add_node = true;
 
-                    let listener = (event) => {
-                        event.preventDefault();
-                        let text = event.target.text.value;
-                        let color = event.target.color.value;
-                        console.log(text);
-                        this.addNode(-1, window.addNodeLocX, window.addNodeLocY, false, text, color);
-                        event.target.text.value = "";
-                        window.addNodeLocX = 300;
-                        window.addNodeLocY = 300;
+                    //let listener = (event) => {
+                        //event.preventDefault();
+                        //let text = event.target.text.value;
+                        //let color = event.target.color.value;
+                        //console.log(text);
+                        //this.addNode(-1, window.addNodeLocX, window.addNodeLocY, false, text, color);
+                        //event.target.text.value = "";
+                        //window.addNodeLocX = 300;
+                        //window.addNodeLocY = 300;
 
-                        document.getElementById('add_node_form').removeEventListener('submit', listener);
-                    }
+                        ////document.getElementById('add_node_form').removeEventListener('submit', listener);
+                    //}
 
-                    document.getElementById('add_node_form').addEventListener('submit', listener);
+
+                    //document.getElementById('add_node_form').addEventListener('submit', listener);
+                    this.promptAddNode(e.pageX, e.pageY);
                 }),
                 new Button('Add dependent task', (e) => {
-                    window.addNodeLocX = e.pageX;
-                    window.addNodeLocY = e.pageY;
-                    //this.addNode(this.index++, e.pageX, e.pageY);
-                    window.document.body.__x.$data.open_add_node = true;
+                    this.promptAddNode(e.pageX, e.pageY, '', this.selectedNode);
 
-                    let listener = (event) => {
-                        event.preventDefault();
-                        let text = event.target.text.value;
-                        let color = event.target.color.value;
-                        console.log(text);
-                        let index = g.index;
-                        this.addNode(-1, window.addNodeLocX, window.addNodeLocY, false, text, color);
-                        this.addEdge(this.selectedNode, index);
-
-                        event.target.text.value = "";
-                        window.addNodeLocX = 300;
-                        window.addNodeLocY = 300;
-
-                        document.getElementById('add_node_form').removeEventListener('submit', listener);
-                    }
-
-                    document.getElementById('add_node_form').addEventListener('submit', listener);
                 }, () => this.selectedNode != -1)
             ]
         );
@@ -77,15 +59,50 @@ class Graph {
         }
     }
 
+    promptAddNode(x = 400, y = 400, initialText = '', dependencyNode = undefined) {
+        const colors = ['#a873ff', '#697afa', '#fc7c7c', '#ffea73', '#9cff8f'];
+        const bgs = ['#d5bdfc', '#dee2ff', '#ffdede', '#fcf3bb', '#e2ffde'];
+
+        let textarea = document.getElementById('add-node-textarea');
+        textarea.value = initialText;
+
+        textarea.style.backgroundColor = bgs[0];
+
+        for (let i = 0; i < 5; i++) {
+            let btn = document.getElementById(`color-btn${i}`);
+            btn.style.backgroundColor = colors[i];
+            btn.onclick = () => {
+                textarea.style.backgroundColor = bgs[i];
+            }
+        }
+
+        document.getElementById('add-node-submit').onclick = () => {
+            this.addNode(-1, x, y, false, textarea.value,
+                    textarea.style.backgroundColor);
+            if (typeof dependencyNode !== 'undefined') {
+                this.addEdge(dependencyNode, this.index);
+            }
+            document.getElementById('add-node').style.display = 'none';
+        }
+
+        document.getElementById('add-node-cancel').onclick = () => {
+            document.getElementById('add-node').style.display = 'none';
+        }
+
+        document.getElementById('add-node').style.display = 'inline';
+
+        textarea.focus();
+    }
+
     get selectedNode() {
         return this._selectedNode;
     }
 
     set selectedNode(id) {
-        if (this.selectedNode != -1) {
+        if (this.selectedNode in this.nodes) {
             this.nodes[this.selectedNode].elem.classList.remove("node_selected");
         }
-        if (id != -1) {
+        if (id in this.nodes) {
             this.nodes[id].elem.classList.add("node_selected");
         }
         this._selectedNode = id;
@@ -117,7 +134,7 @@ class Graph {
         this.nodesSize++;
 
         if (id == -1) {
-            id = this.index++;
+            id = ++this.index;
         }
 
         this.nodes[id] = new Node(id, x, y, state, displayName, color);
@@ -151,7 +168,7 @@ class Graph {
         addContextMenu(
             node.elemDrag,
             [
-                new Button('Add connection', () => {
+                new Button('Connect', () => {
                     console.log('add connection');
 
                     this.addEdge(this.selectedNode, node.id);
@@ -181,9 +198,10 @@ class Graph {
 
                 }, () => this.children.get(node.id).size < this.nodesSize - 1
                         && this.selectedNode != -1 && node.id != this.selectedNode
-                        && !this.children.get(this.selectedNode).has(node.id)),
+                        && !this.children.get(this.selectedNode).has(node.id)
+                        && !this.edgeCreatesCycle(this.selectedNode, node.id)),
 
-                new Button('Remove connection', () => {
+                new Button('Disconnect', () => {
                     console.log('remove connection');
 
                     this.removeEdge(this.selectedNode, node.id);
@@ -214,8 +232,10 @@ class Graph {
                     //}
 
 
-                }, () => (this.children.get(node.id).size || this.parents.get(node.id).size)
-                        && this.selectedNode != -1 && node.id != this.selectedNode),
+                }, () => this.selectedNode != -1
+                        && (this.parents.get(this.selectedNode).has(node.id)
+                        || this.children.get(this.selectedNode).has(node.id))
+                        && node.id != this.selectedNode),
 
                 new Button(() => (node.elemState ? 'Mark as incomplete' : 'Mark as done'), () => {
                     node.state = !node.state;
@@ -261,27 +281,27 @@ class Graph {
         }
     }
 
-    addAllNodesClick() {
-        // re-adds dragging and context menu to all nodes
-        for (const [key, node] of Object.entries(this.nodes)) {
-            this.makeNodeDraggable(node);
-            this.addNodeContextMenu(node);
-        }
-    }
+    //addAllNodesClick() {
+        //// re-adds dragging and context menu to all nodes
+        //for (const [key, node] of Object.entries(this.nodes)) {
+            //this.makeNodeDraggable(node);
+            //this.addNodeContextMenu(node);
+        //}
+    //}
 
-    removeAllNodesClick() {
-        for (const [key, node] of Object.entries(this.nodes)) {
-            this.removeNodeClick(node);
-        }
-    }
+    //removeAllNodesClick() {
+        //for (const [key, node] of Object.entries(this.nodes)) {
+            //this.removeNodeClick(node);
+        //}
+    //}
 
-    removeNodeClick(node) {
-        // removes dragging and context menu from node
-        (node.elemDrag || node.elem).style.cursor = 'not-allowed';
-        (node.elemDrag || node.elem).onmousedown = (e) => e.preventDefault();
+    //removeNodeClick(node) {
+        //// removes dragging and context menu from node
+        //(node.elemDrag || node.elem).style.cursor = 'not-allowed';
+        //(node.elemDrag || node.elem).onmousedown = (e) => e.preventDefault();
 
-        node.elemDrag.oncontextmenu = (e) => e.preventDefault();
-    }
+        //node.elemDrag.oncontextmenu = (e) => e.preventDefault();
+    //}
 
     makeNodeDraggable(node) {
         let self = this;

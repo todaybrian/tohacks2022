@@ -30,9 +30,9 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
         ctxMenu.style.top = `${e.pageY}px`;
 
         function exitMenu() {
-            after(e);
             ctxMenu.remove();
             ctxExit.style.display = 'none';
+            after(e);
         }
 
         function addButton(innerText, onClick, isValid) {
@@ -46,6 +46,7 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
             } else {
                 btn.disabled = true;
             }
+            btn.classList.add('min-btn');
             ctxMenu.appendChild(btn);
         }
 
