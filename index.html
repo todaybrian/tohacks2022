@@ -54,7 +54,7 @@
                                 class="shadow rounded w-full mb-3 py-2 px-3 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 placeholder="Add text here" name="text">
                             <label for="color">Color:</label>
-                            <input type="text" value="#80deea" data-coloris>
+                            <input type="text" name="color" value="#80deea" data-coloris>
                         </div>
                         <div class="justify-end card-footer">
                             <a href="#" class="btn btn-link btn-sm" name="cancel"
@@ -68,6 +68,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/kutty@latest/dist/kutty.min.js"></script>
     <script src="js/queue.js"></script>
     <script src="js/svg.js"></script>
     <script src="js/context_menu.js"></script>
@@ -87,8 +88,17 @@
                 '#ff9e00'
             ]
         });
+        document.querySelector("#add_node_form").addEventListener('submit', event=>{
+            event.preventDefault();
+            let text = event.target.text.value;
+            let color = event.target.color.value;
+            console.log(text);
+            g.addNode(g.index++, window.addNodeLocX, window.addNodeLocY, false, text, color);
+            event.target.text.value = "";
+            window.addNodeLocX = 300;
+            window.addNodeLocY = 300;
+        });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/kutty@latest/dist/kutty.min.js"></script>
 
 </body>
 

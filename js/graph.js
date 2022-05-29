@@ -1,3 +1,6 @@
+window.addNodeLocX = 300;
+window.addNodeLocY = 300;
+
 class Graph {
     constructor() {
         this.parents = new AdjList();
@@ -16,7 +19,10 @@ class Graph {
             document.getElementById('nodes'),
             [
                 new Button('Add task', (e) => {
-                    this.addNode(this.index++, e.pageX, e.pageY);
+                    window.addNodeLocX = e.pageX;
+                    window.addNodeLocY = e.pageY;
+                    //this.addNode(this.index++, e.pageX, e.pageY);
+                    window.document.body.__x.$data.open_add_node = true;
                 })
             ]
         );
@@ -44,10 +50,10 @@ class Graph {
         lineElem.remove();
     }
     
-    addNode(id, x=300, y=300, state=false) {
+    addNode(id, x=300, y=300, state=false, displayName="Node " + id, color='none') {
         this.nodesSize++;
 
-        this.nodes[id] = new Node(id, x, y, state, "Node " + id);
+        this.nodes[id] = new Node(id, x, y, state, displayName, color);
         this.makeNodeDraggable(this.nodes[id]);
         this.addNodeContextMenu(this.nodes[id]);
     }

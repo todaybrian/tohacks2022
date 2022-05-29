@@ -1,13 +1,12 @@
 class Node {
-    constructor(id, x, y, state, displayText) {
+    constructor(id, x, y, state, displayText, color) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.state = state;
-        this._color = 'none';
+        this._color = color;
         this.isContextMenued = false;
         this._displayText = displayText;
-        console.log(displayText);
     }
 
     get color() {
