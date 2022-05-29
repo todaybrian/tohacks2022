@@ -1,13 +1,25 @@
 class Button {
     constructor(text, onClick) {
-        this.text = text;
+        if (typeof text === 'string' || text instanceof String) {
+            this.textFunc = () => text;
+        } else {
+            this.textFunc = text;
+        }
         this.onClick = onClick;
+    }
+
+    get text() {
+        return this.textFunc();
     }
 }
 
 function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
     elem.oncontextmenu = (e) => {
-        before();
+        if (e.target.id != elem.id) {
+            return;
+        }
+
+        before(e);
         e.preventDefault();
 
         let ctxMenu = document.createElement('div');
@@ -16,7 +28,7 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
         ctxMenu.style.top = `${e.pageY}px`;
 
         function exitMenu() {
-            after();
+            after(e);
             ctxMenu.remove();
             ctxExit.style.display = 'none';
         }
@@ -25,7 +37,7 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
             let btn = document.createElement('button');
             btn.innerText = innerText;
             btn.onclick = () => {
-                onClick();
+                onClick(e);
                 exitMenu();
             }
             ctxMenu.appendChild(btn);
@@ -39,6 +51,10 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
         ctxExit.style.display = 'inline';
 
         ctxExit.onclick = exitMenu;
+        ctxExit.oncontextmenu = (e) => {
+            e.preventDefault();
+            exitMenu();
+        }
 
         document.body.appendChild(ctxMenu);
     }
