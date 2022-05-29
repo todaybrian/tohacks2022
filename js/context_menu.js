@@ -11,7 +11,7 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
             return;
         }
 
-        before();
+        before(e);
         e.preventDefault();
 
         let ctxMenu = document.createElement('div');
@@ -20,7 +20,7 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
         ctxMenu.style.top = `${e.pageY}px`;
 
         function exitMenu() {
-            after();
+            after(e);
             ctxMenu.remove();
             ctxExit.style.display = 'none';
         }
@@ -29,7 +29,7 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
             let btn = document.createElement('button');
             btn.innerText = innerText;
             btn.onclick = () => {
-                onClick();
+                onClick(e);
                 exitMenu();
             }
             ctxMenu.appendChild(btn);
