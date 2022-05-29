@@ -372,7 +372,7 @@ class Graph {
         (elemDrag || elem).style.textDecoration = 'none';
         (elemDrag || elem).onmousedown = onMouseDown;
     }
-
+    /*
     arrangeAsTree() {
         let len = Object.keys(this.nodes).length;
         let arr = Array.from(Array(len));
@@ -399,13 +399,58 @@ class Graph {
             });
         }
         // now we know the levels, so we should sort the nodes based on the levels
-    }
+    }*/
 
     edgeCreatesCycle(u, v) {
         // returns true if adding edge u -> v creates a cycle
-
-        // to be implemented
-        return false;
+        // add edge, use top sort to detect cycles, and if present then remove it
+        this.children.addEdge(u, v);
+        this.parents.addEdge(v, u);
+        var adj = this.children;
+        var n = this.nodesSize;
+        var topsort = [];
+        var stk = [];
+        var vis = Array(n).fill(false);
+        // dfs for topsort
+        function dfs(node)  {
+            vis[node] = true;
+            adj.get(node).forEach(i =>   {
+                if (vis[i] == false)
+                    dfs(i);
+            });
+            stk.push(node);
+        }
+        function isCyclic() {
+            // use stack to construct topological order
+            var pos = new Map();
+            var ind = 0;
+            while (stk.length > 0)    {
+                pos.set(stk[stk.length-1], ind++);
+                topsort.push(stk[stk.length-1]);
+                stk.pop();
+            }
+            // check if ordering is valid 
+            // if invalid, then topological sort failed, (there is a cycle)
+            var cyclic = false;
+            for (var i = 0; i < n; i++)    {
+                adj.get(i).forEach(j =>   {
+                    if ((pos.has(i)?pos.get(i):0) > (pos.has(j)?pos.get(j):0))  {
+                        cyclic = true;
+                    }
+                })
+            }
+            return cyclic;
+        }
+        for (var i = 0; i < n; i++)    {
+            if (vis[i] == false)    {
+                dfs(i);
+            }
+        }
+        if (isCyclic()) {
+            this.children.removeEdge(u, v);
+            this.parents.removeEdge(v, u);
+            return true;
+        } else  return false;
     }
 }
 
