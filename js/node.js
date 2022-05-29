@@ -1,8 +1,9 @@
 class Node {
-    constructor(id, x, y) {
+    constructor(id, x, y, state) {
         this.id = id;
         this.x = x;
         this.y = y;
+        this.state = state;
         this._color = 'none';
         this.isContextMenued = false;
     }
@@ -74,6 +75,10 @@ class Node {
 
     get elemDrag() {
         return document.getElementById(`node${this.id}_drag`);
+    }
+
+    get elemState() {
+        return this.state;
     }
 
     get elemColor() {

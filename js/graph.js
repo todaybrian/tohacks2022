@@ -26,7 +26,6 @@ class Graph {
         let lineElem = getEdgeLine(node1Id, node2Id);
         lineElem.remove();
     }
-
     addNodeContextMenu(node) {
         node.elem.oncontextmenu = (e) => {
             node.isContextMenued = true;
@@ -73,7 +72,7 @@ class Graph {
         }
     }
 
-    addNode(id, x=300, y=300) {
+    addNode(id, x=300, y=300, state=false) {
         this.nodes[id] = new Node(id, x, y);
         this.makeNodeDraggable(this.nodes[id]);
         this.addNodeContextMenu(this.nodes[id]);
@@ -100,11 +99,14 @@ class Graph {
             let lineElem = getEdgeLine(parent.id, node.id);
             setEdgeLinePoints(lineElem, parent.midX, parent.midY, node.midX, node.midY);
         }
+        console.log(`node${node.id}_drag`);
     }
 
     makeNodeDraggable(node) {
         let self = this;
         let elem = node.elem;
+        let elemDrag = node.elemDrag;
+        let elemState = node.elemState;
 
         function onDrag(e) {
             e.preventDefault();
@@ -142,10 +144,16 @@ class Graph {
             node.y = e.clientY;
 
             document.onmousemove = onDrag;
-            document.onmouseup = stopDrag
+            document.onmouseup = stopDrag;
+            elemState = !elemState;
+            if (elemState)  {
+                elemDrag.style.backgroundColor = 'rgba(57, 182, 190, 0.2)';
+            } else  {
+                elemDrag.style.backgroundColor = 'white';
+            }
         }
 
-        (document.getElementById(elem.id + "_drag") || elem).onmousedown = onMouseDown;
+        (elemDrag || elem).onmousedown = onMouseDown;
     }
 }
 
