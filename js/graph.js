@@ -47,6 +47,15 @@ class Graph {
         return this.nodes[id];
     }
 
+    removeNode(id) {
+        for (const parent of this.parents.get(nodes[id])) {
+
+        }
+
+        this.nodes[id].removeElem();
+        delete this.nodes[id];
+    }
+
     addNodeContextMenu(node) {
         addContextMenu(
             node.elemDrag,
@@ -58,7 +67,7 @@ class Graph {
                     console.log('edit button');
                 }),
                 new Button('Delete', () => {
-                    console.log('delete button');
+                    this.removeNode(node.id);
                 })
             ],
             () => { node.isContextMenued = true },
