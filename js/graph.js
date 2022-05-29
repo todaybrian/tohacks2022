@@ -98,13 +98,14 @@ class Graph {
 
             elem.style.left = `${elem.offsetLeft - dx}px`;
             elem.style.top = `${elem.offsetTop - dy}px`;
-
+            elemDrag.setAttribute('style', 'background-color: rgba(57, 182, 190, 0.6)');
             self.onNodeDrag(node);
         }
 
         function stopDrag() {
             document.onmouseup = null;
             document.onmousemove = null;
+            elemDrag.setAttribute('style', 'background-color: rgba(57, 182, 190, 0.4)');
         }
 
         function onMouseDown(e) {
@@ -119,12 +120,7 @@ class Graph {
 
             document.onmousemove = onDrag;
             document.onmouseup = stopDrag;
-            elemState = !elemState;
-            if (elemState)  {
-                elemDrag.style.backgroundColor = 'rgba(57, 182, 190, 0.2)';
-            } else  {
-                elemDrag.style.backgroundColor = 'white';
-            }
+            //elemDrag.style.backgroundColor = 'rgb(57, 182, 190)';
         }
 
         (elemDrag || elem).onmousedown = onMouseDown;

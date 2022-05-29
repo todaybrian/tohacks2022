@@ -43,7 +43,7 @@ body {
     padding: 10px;
     cursor: move;
     z-index: 11;
-    background-color: white;
+    background-color: rgba(57, 182, 190, 0.4);
     color: black;
 }
 
