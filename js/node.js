@@ -64,6 +64,10 @@ class Node {
         return elem;
     }
 
+    removeElem() {
+        this.elem.remove();
+    }
+
     get elem() {
         let elem = document.getElementById(`node${this.id}`);
         if (!elem) {
