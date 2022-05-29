@@ -3,12 +3,13 @@ class Graph {
         this.parents = new AdjList();
         this.children = new AdjList();
         this.nodes = {};
+        this.index = 7;
         
         addContextMenu(
             document.getElementById('nodes'),
             [
-                new Button('Add task', () => {
-                    console.log('add task');
+                new Button('Add task', (e) => {
+                    this.addNode(this.index++, e.pageX, e.pageY)
                 })
             ]
         );
@@ -35,6 +36,16 @@ class Graph {
         let lineElem = getEdgeLine(node1Id, node2Id);
         lineElem.remove();
     }
+    
+    addNode(id, x=300, y=300, state=false) {
+        this.nodes[id] = new Node(id, x, y);
+        this.makeNodeDraggable(this.nodes[id]);
+        this.addNodeContextMenu(this.nodes[id]);
+    }
+
+    getNode(id) {
+        return this.nodes[id];
+    }
 
     addNodeContextMenu(node) {
         addContextMenu(
@@ -53,16 +64,6 @@ class Graph {
             () => { node.isContextMenued = true },
             () => { node.isContextMenued = false }
         );
-    }
-
-    addNode(id, x=300, y=300, state=false) {
-        this.nodes[id] = new Node(id, x, y);
-        this.makeNodeDraggable(this.nodes[id]);
-        this.addNodeContextMenu(this.nodes[id]);
-    }
-
-    getNode(id) {
-        return this.nodes[id];
     }
 
     onNodeDrag(node) {
