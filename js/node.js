@@ -3,6 +3,16 @@ class Node {
         this.id = id;
         this.x = x;
         this.y = y;
+        this._color = 'red';
+    }
+
+    get color() {
+        return this._color;
+    }
+
+    set color(color) {
+        this._color = color;
+        this.elemColor.setAttribute('style', `background-color: ${color}`);
     }
 
     createElem() {
@@ -32,7 +42,11 @@ class Node {
     }
 
     get elemDrag() {
-        let elem = document.getElementById
+        return document.getElementById(`node${this.id}_drag`);
+    }
+
+    get elemColor() {
+        return document.getElementById(`node${this.id}_color`);
     }
 
     get midX() {
