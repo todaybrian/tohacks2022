@@ -31,7 +31,9 @@ class Graph {
         addContextMenu(
             node.elem,
             [
-                new Button('Mark as done', () => {
+                new Button((node.elemState ? 'Unmark as done' : 'Mark as done'), () => {
+                    node.state = !node.state;
+                    node.elemDrag.setAttribute('style', `background-color: rgba(57, 182, 190, ${(0.4 - (node.elemState ? 0.2 : 0))})`);
                     console.log('done button');
                 }),
                 new Button('Edit', () => {
@@ -80,7 +82,6 @@ class Graph {
         let self = this;
         let elem = node.elem;
         let elemDrag = node.elemDrag;
-        let elemState = node.elemState;
 
         function onDrag(e) {
             e.preventDefault();
@@ -105,7 +106,7 @@ class Graph {
         function stopDrag() {
             document.onmouseup = null;
             document.onmousemove = null;
-            elemDrag.setAttribute('style', 'background-color: rgba(57, 182, 190, 0.4)');
+            elemDrag.setAttribute('style', `background-color: rgba(57, 182, 190, ${(0.4 - (node.elemState ? 0.2 : 0))})`);
         }
 
         function onMouseDown(e) {
@@ -120,7 +121,6 @@ class Graph {
 
             document.onmousemove = onDrag;
             document.onmouseup = stopDrag;
-            //elemDrag.style.backgroundColor = 'rgb(57, 182, 190)';
         }
 
         (elemDrag || elem).onmousedown = onMouseDown;
