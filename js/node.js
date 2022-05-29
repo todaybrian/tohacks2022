@@ -59,7 +59,6 @@ class Node {
             }
         }
 
-
         document.getElementById("nodes").appendChild(elem);
         this.color = this._color;
         return elem;
