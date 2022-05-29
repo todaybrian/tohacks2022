@@ -32,7 +32,11 @@ class Node {
     }
 
     get elemDrag() {
-        let elem = document.getElementById
+        let elem = document.getElementById(`node${this.id}_drag`);
+        if (!elem)  {
+            elem = this.createElem();
+        }
+        return elem;
     }
 
     get midX() {

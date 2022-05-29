@@ -53,11 +53,13 @@ class Graph {
             let lineElem = getEdgeLine(parent.id, node.id);
             setEdgeLinePoints(lineElem, parent.midX, parent.midY, node.midX, node.midY);
         }
+        console.log(`node${node.id}_drag`);
     }
 
     makeNodeDraggable(node) {
         let self = this;
         let elem = node.elem;
+        let elemDrag = node.elemDrag;
 
         function onDrag(e) {
             e.preventDefault();
@@ -70,6 +72,7 @@ class Graph {
 
             elem.style.left = `${elem.offsetLeft - dx}px`;
             elem.style.top = `${elem.offsetTop - dy}px`;
+            elemDrag.style.backgroundColor = 'rgba(57, 182, 190, 0.2)';
 
             self.onNodeDrag(node);
         }
@@ -77,6 +80,7 @@ class Graph {
         function stopDrag() {
             document.onmouseup = null;
             document.onmousemove = null;
+            elemDrag.style.backgroundColor = 'white';
         }
 
         function onMouseDown(e) {
