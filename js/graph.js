@@ -27,7 +27,7 @@ class Graph {
         lineElem.remove();
     }
 
-    addNode(id, x=0, y=0) {
+    addNode(id, x=300, y=300) {
         this.nodes[id] = new Node(id, x, y);
         this.makeNodeDraggable(this.nodes[id]);
     }
