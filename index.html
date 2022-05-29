@@ -5,7 +5,28 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <div class = "sidebar">
+            <h1>
+                Modes
+            </h1>
+            <button class="button"><span>Add Node</span></button>
+            <button class="button"><span>Delete Node</span></button>
+            <button class="button"><span>Add Edge</span></button>
+            <button class="button"><span>Delete Edge</span></button>
+            <button class="button"><span>Pan</span></button>
+        </div>
         <!--<canvas id="canvas" width="800" height="800"></canvas>-->
+
+        <div id="node0" class="node">
+            <div id="node0_drag" class="node_header">
+                node 0
+            </div>
+        </div>
+        <div id="node1" class="node">
+            <div id="node1_drag" class="node_header">
+                node 1
+            </div>
+        </div>
         <div id="nodes"></div>
 
         <svg id="svg" height="100%" width="100%" overflow="visible">
@@ -18,16 +39,10 @@
     
             <!--<polyline points="0,0 100,50 200,100" class="edge"/>-->
         </svg>
-        <h1>
-            Modes
-        </h1>
 
-        <button class="button"><span>Add Node</span></button>
-        <button class="button"><span>Delete Node</span></button>
-        <button class="button"><span>Add Edge</span></button>
-        <button class="button"><span>Delete Edge</span></button>
-        <button class="button"><span>Pan</span></button>
-
+        
+        
+    
         <script src="js/svg.js"></script>
         <script src="js/adj_list.js"></script>
         <script src="js/node.js"></script>
