@@ -14,7 +14,7 @@ class Graph {
         this.RemovingEdge = false;
         this.updateEdgeParent = 0;
         this.updateEdgeChild = 0;
-        
+
         addContextMenu(
             document.getElementById('nodes'),
             [
@@ -49,8 +49,8 @@ class Graph {
         let lineElem = getEdgeLine(node1Id, node2Id);
         lineElem.remove();
     }
-    
-    addNode(id, x=300, y=300, state=false, displayName="Node " + id, color='none') {
+
+    addNode(id, x = 300, y = 300, state = false, displayName = "Node " + id, color = 'none') {
         this.nodesSize++;
 
         this.nodes[id] = new Node(id, x, y, state, displayName, color);
@@ -109,7 +109,7 @@ class Graph {
                         }
                     }
 
-                }, () => this.children.get(node.id).size < this.nodesSize-1),
+                }, () => this.children.get(node.id).size < this.nodesSize - 1),
 
                 new Button('Remove connection', () => {
                     console.log('remove connection');
@@ -148,10 +148,12 @@ class Graph {
 
                 new Button('Edit', () => {
                     let new_text = prompt('Enter new text:', node.displayText);
-                    node.displayText = new_text;
-                    node.elemDrag.innerText = new_text;
-                    g.onNodeDrag(node);
-                    console.log('edit button');
+                    if (new_text != null) {
+                        node.displayText = new_text;
+                        node.elemDrag.innerText = new_text;
+                        g.onNodeDrag(node);
+                        console.log('edit button');
+                    }
                 }),
 
                 new Button('Delete', () => {
@@ -215,7 +217,7 @@ class Graph {
             if (node.isContextMenued || self.addingNode || self.removingNode) {
                 return;
             }
-            
+
             let dx = node.x - e.clientX;
             let dy = node.y - e.clientY;
 
