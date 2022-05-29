@@ -60,7 +60,7 @@ class Graph {
         addContextMenu(
             node.elemDrag,
             [
-                new Button((node.elemState ? 'Mark as not done' : 'Mark as done'), () => {
+                new Button(() => (node.elemState ? 'Mark as not done' : 'Mark as done'), () => {
                     node.state = !node.state;
                     node.elemDrag.setAttribute('style', `background-color: rgba(57, 182, 190, ${(0.4 - (node.elemState ? 0.2 : 0))})`);
                     console.log('done button');
