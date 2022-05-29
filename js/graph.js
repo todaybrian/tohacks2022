@@ -3,6 +3,7 @@ window.addNodeLocY = 300;
 
 class Graph {
     constructor() {
+        this.graph_name = "Untitled Project";
         this.parents = new AdjList();
         this.children = new AdjList();
         this.nodes = {};
@@ -406,6 +407,14 @@ class Graph {
 
         // to be implemented
         return false;
+    }
+
+    addName(name) {
+        this.graph_name = name;
+    }
+
+    getName() {
+        return this.graph_name;
     }
 }
 
