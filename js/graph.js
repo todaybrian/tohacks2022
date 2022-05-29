@@ -43,26 +43,27 @@ class Graph {
                 node.isContextMenued = false;
             }
 
-            function btnFunc(func) {
-                return () => {
-                    func();
+            function addButton(innerText, onclick) {
+                let btn = document.createElement('button');
+                btn.innerText = innerText;
+                btn.onclick = () => {
+                    onclick();
                     exitMenu();
                 }
+                ctxMenu.appendChild(btn);
             }
 
-            let deleteBtn = document.createElement('button');
-            deleteBtn.innerText = "Delete";
-            deleteBtn.onclick = btnFunc(() => {
-                console.log('delete button clicked');
+            addButton("Mark as done", () => {
+                console.log('done button');
             });
-            ctxMenu.appendChild(deleteBtn);
 
-            let doneBtn = document.createElement('button');
-            doneBtn.innerText = "Mark as done";
-            doneBtn.onclick = btnFunc(() => {
-                console.log('done button clicked');
+            addButton("Edit", () => {
+                console.log('edit button');
             });
-            ctxMenu.appendChild(doneBtn);
+
+            addButton("Delete", () => {
+                console.log('delete button');
+            });
 
             let ctxExit = document.getElementById("context_menu_exit");
             ctxExit.style.display = 'inline';
