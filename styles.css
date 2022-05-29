@@ -12,7 +12,6 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: -10;
 }
 
 .node {
@@ -88,4 +87,5 @@ body {
 .sidebar {
     position: fixed;
     border-right: 1px solid black;
+    z-index: 5;
 }
