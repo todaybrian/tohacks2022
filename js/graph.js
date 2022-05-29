@@ -60,7 +60,7 @@ class Graph {
         addContextMenu(
             node.elemDrag,
             [
-                new Button('Mark as done', () => {
+                new Button(() => "mark as done", () => {
                     console.log('done button');
                 }),
                 new Button('Edit', () => {
