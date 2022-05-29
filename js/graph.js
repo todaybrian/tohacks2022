@@ -119,6 +119,7 @@ class Graph {
                     let new_text = prompt('Enter new text:', node.displayText);
                     node.displayText = new_text;
                     node.elemDrag.innerText = new_text;
+                    g.onNodeDrag(node);
                     console.log('edit button');
                 }),
                 new Button('Delete', () => {
