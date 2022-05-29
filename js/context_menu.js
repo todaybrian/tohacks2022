@@ -7,6 +7,10 @@ class Button {
 
 function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
     elem.oncontextmenu = (e) => {
+        if (e.target.id != elem.id) {
+            return;
+        }
+
         before();
         e.preventDefault();
 
@@ -39,6 +43,10 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
         ctxExit.style.display = 'inline';
 
         ctxExit.onclick = exitMenu;
+        ctxExit.oncontextmenu = (e) => {
+            e.preventDefault();
+            exitMenu();
+        }
 
         document.body.appendChild(ctxMenu);
     }

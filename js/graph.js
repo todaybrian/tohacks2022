@@ -3,6 +3,15 @@ class Graph {
         this.parents = new AdjList();
         this.children = new AdjList();
         this.nodes = {};
+        
+        addContextMenu(
+            document.getElementById('nodes'),
+            [
+                new Button('Add task', () => {
+                    console.log('add task');
+                })
+            ]
+        );
     }
 
     addEdge(node1Id, node2Id) {
@@ -29,7 +38,7 @@ class Graph {
 
     addNodeContextMenu(node) {
         addContextMenu(
-            node.elem,
+            node.elemDrag,
             [
                 new Button('Mark as done', () => {
                     console.log('done button');
