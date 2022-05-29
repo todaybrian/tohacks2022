@@ -16,7 +16,7 @@ class Graph {
             document.getElementById('nodes'),
             [
                 new Button('Add task', (e) => {
-                    this.addNode(this.index, e.pageX, e.pageY);
+                    this.addNode(this.index++, e.pageX, e.pageY);
                 })
             ]
         );
