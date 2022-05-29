@@ -88,16 +88,6 @@
                 '#ff9e00'
             ]
         });
-        document.querySelector("#add_node_form").addEventListener('submit', event=>{
-            event.preventDefault();
-            let text = event.target.text.value;
-            let color = event.target.color.value;
-            console.log(text);
-            g.addNode(g.index++, window.addNodeLocX, window.addNodeLocY, false, text, color);
-            event.target.text.value = "";
-            window.addNodeLocX = 300;
-            window.addNodeLocY = 300;
-        });
     </script>
 
 </body>

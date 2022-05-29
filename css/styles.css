@@ -25,6 +25,12 @@
     cursor: pointer;
 }
 
+.node_selected {
+    border: 2px solid black;
+    /*margin-left: -2px;*/
+    /*margin-top: -2px;*/
+}
+
 .node_color:hover {
     border: 2px solid black;
     right: -6px;
@@ -71,12 +77,17 @@
     cursor: pointer;
 }
 
-#context_menu button:hover {
+#context_menu button:hover:not([disabled]) {
     text-decoration: underline;
 }
 
-#context_menu button:active {
+#context_menu button:active:not([disabled]) {
     background-color: #ccc;
+}
+
+#context_menu button:disabled {
+    color: #bbb;
+    cursor: not-allowed;
 }
 
 #context_menu_exit {
