@@ -67,7 +67,12 @@ class Graph {
         let textarea = document.getElementById('add-node-textarea');
         textarea.value = initialText;
 
-        textarea.style.backgroundColor = bgs[0];
+        if (typeof editNode !== 'undefined') {
+            let node = this.getNode(editNode);
+            textarea.style.backgroundColor = node.color;
+        } else {
+            textarea.style.backgroundColor = bgs[0];
+        }
 
         for (let i = 0; i < 5; i++) {
             let btn = document.getElementById(`color-btn${i}`);
@@ -78,6 +83,9 @@ class Graph {
         }
 
         document.getElementById('add-node-submit').onclick = () => {
+            if (textarea.value === '') {
+                textarea.value = 'Task';
+            }
             if (typeof editNode !== 'undefined') {
                 let node = this.getNode(editNode);
                 node.displayText = textarea.value;

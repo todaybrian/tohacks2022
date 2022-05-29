@@ -9,9 +9,12 @@
 .node {
     position: absolute;
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid transparent;
+    border-radius: 5px;
     z-index: 10;
-    font-size: 12px;
+    font-size: 14px;
+    max-width: 200px;
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.3);
 }
 
 .node_color {
@@ -26,7 +29,7 @@
 }
 
 .node_selected {
-    border: 2px solid black;
+    border: 2px solid rgba(0,0,0,0.5);
     /*margin-left: -2px;*/
     /*margin-top: -2px;*/
 }
@@ -115,20 +118,23 @@
 
 #context_menu {
     position: fixed;
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
-    width: 150px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+    width: 170px;
     /*height: 300px;*/
     /*padding: 10px;*/
     background-color: white;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+    border-radius: 10px;
     z-index: 101;
+    text-align: center;
+    display: inline;
 }
 
 .min-btn {
     width: 100%;
-    font-size: 12px;
+    font-size: 13px;
     padding: 10px;
-    background-color: white;
+    /*background-color: white;*/
     border: 0px;
     cursor: pointer;
 }
@@ -138,7 +144,7 @@
 }
 
 .min-btn:active:not([disabled]) {
-    background-color: #ccc;
+    color: #ccc;
 }
 
 .min-btn:disabled {
@@ -157,13 +163,13 @@
 }
 
 .edge {
-    stroke: black;
-    stroke-width: 1;
+    stroke: #333;
+    stroke-width: 2;
     marker-mid: url(#arrow);
 }
 
 #arrow {
-    fill: black;
+    fill: #333;
 }
 
 .button {
@@ -215,4 +221,4 @@
     width: 100% !important;
     height: 100%;
     border-radius: 5px;
-  }
+}
