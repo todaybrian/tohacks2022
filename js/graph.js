@@ -27,7 +27,7 @@ class Graph {
         lineElem.remove();
     }
 
-    addNode(id, x=300, y=300) {
+    addNode(id, x=300, y=300, state=false) {
         this.nodes[id] = new Node(id, x, y);
         this.makeNodeDraggable(this.nodes[id]);
     }
@@ -60,6 +60,7 @@ class Graph {
         let self = this;
         let elem = node.elem;
         let elemDrag = node.elemDrag;
+        let elemState = node.elemState;
 
         function onDrag(e) {
             e.preventDefault();
@@ -72,7 +73,6 @@ class Graph {
 
             elem.style.left = `${elem.offsetLeft - dx}px`;
             elem.style.top = `${elem.offsetTop - dy}px`;
-            elemDrag.style.backgroundColor = 'rgba(57, 182, 190, 0.2)';
 
             self.onNodeDrag(node);
         }
@@ -80,7 +80,6 @@ class Graph {
         function stopDrag() {
             document.onmouseup = null;
             document.onmousemove = null;
-            elemDrag.style.backgroundColor = 'white';
         }
 
         function onMouseDown(e) {
@@ -90,10 +89,16 @@ class Graph {
             node.y = e.clientY;
 
             document.onmousemove = onDrag;
-            document.onmouseup = stopDrag
+            document.onmouseup = stopDrag;
+            elemState = !elemState;
+            if (elemState)  {
+                elemDrag.style.backgroundColor = 'rgba(57, 182, 190, 0.2)';
+            } else  {
+                elemDrag.style.backgroundColor = 'white';
+            }
         }
 
-        (document.getElementById(elem.id + "_drag") || elem).onmousedown = onMouseDown;
+        (elemDrag || elem).onmousedown = onMouseDown;
     }
 }
 

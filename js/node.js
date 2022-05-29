@@ -1,8 +1,9 @@
 class Node {
-    constructor(id, x, y) {
+    constructor(id, x, y, state) {
         this.id = id;
         this.x = x;
         this.y = y;
+        this.state = state;
     }
 
     createElem() {
@@ -32,11 +33,15 @@ class Node {
     }
 
     get elemDrag() {
-        let elem = document.getElementById(`node${this.id}_drag`);
-        if (!elem)  {
-            elem = this.createElem();
+        let elemDrag = document.getElementById(`node${this.id}_drag`);
+        if (!elemDrag)  {
+            elemDrag = this.createElem();
         }
-        return elem;
+        return elemDrag;
+    }
+
+    get elemState() {
+        return this.state;
     }
 
     get midX() {

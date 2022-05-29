@@ -1,12 +1,12 @@
 g = new Graph();
 
-g.addNode(0, 400, 100);
-g.addNode(1, 400, 150);
-g.addNode(2, 300, 200);
-g.addNode(3, 500, 200);
-g.addNode(4, 500, 250);
-g.addNode(5, 500, 400);
-g.addNode(6, 300, 400);
+g.addNode(0, 400, 100, false);
+g.addNode(1, 400, 150, false);
+g.addNode(2, 300, 200, false);
+g.addNode(3, 500, 200, false);
+g.addNode(4, 500, 250, false);
+g.addNode(5, 500, 400, false);
+g.addNode(6, 300, 400, false);
 
 g.addEdge(0, 1);
 g.addEdge(1, 2);
