@@ -99,4 +99,5 @@ body {
     position: fixed;
     border-right: 1px solid black;
     z-index: 5;
+    text-align: center;
 }
