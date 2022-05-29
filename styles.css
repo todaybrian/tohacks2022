@@ -23,9 +23,20 @@ body {
 }
 
 .node_color {
-    position: relative;
+    position: absolute;
     border: 1px solid black;
     z-index: 12;
+    width: 10px;
+    height: 10px;
+    right: -5px;
+    top: -5px;
+    cursor: pointer;
+}
+
+.node_color:hover {
+    border: 2px solid black;
+    right: -6px;
+    top: -6px;
 }
 
 .node_header {

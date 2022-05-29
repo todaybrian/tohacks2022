@@ -3,7 +3,7 @@ class Node {
         this.id = id;
         this.x = x;
         this.y = y;
-        this._color = 'red';
+        this._color = 'none';
     }
 
     get color() {
@@ -12,7 +12,12 @@ class Node {
 
     set color(color) {
         this._color = color;
-        this.elemColor.setAttribute('style', `background-color: ${color}`);
+        if (color === 'none') {
+            console.log(color);
+            this.elemColor.setAttribute('style', 'display:none');
+        } else {
+            this.elemColor.setAttribute('style', `background-color: ${color}`);
+        }
     }
 
     createElem() {
@@ -29,7 +34,31 @@ class Node {
         drag.innerText = `node ${this.id}`;
         elem.appendChild(drag);
 
+        let color = document.createElement('div');
+        color.setAttribute('class', 'node_color');
+        color.setAttribute('id', `node${this.id}_color`);
+
+        color.onclick = () => {
+            let picker = document.getElementById('colorpicker');
+            picker.setAttribute('styles', 'display: inline');
+        }
+
+        elem.appendChild(color);
+
+        elem.onmouseover = () => {
+            if (this.color === 'none') {
+                this.elemColor.setAttribute('style', `background-color: white`);
+            }
+        }
+
+        elem.onmouseout = () => {
+            if (this.color === 'none') {
+                this.elemColor.setAttribute('style', `display: none`);
+            }
+        }
+
         document.getElementById("nodes").appendChild(elem);
+        this.color = this._color;
         return elem;
     }
 
