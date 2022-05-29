@@ -48,8 +48,16 @@ class Graph {
     }
 
     removeNode(id) {
-        for (const parent of this.parents.get(nodes[id])) {
+        // remove all adjacent edges
+        let parents = new Set(this.parents.get(id));
+        let children = new Set(this.children.get(id));
 
+        for (const parent of parents) {
+            this.removeEdge(parent, id);
+        }
+
+        for (const child of children) {
+            this.removeEdge(id, child);
         }
 
         this.nodes[id].removeElem();
