@@ -41,8 +41,8 @@ class Graph {
                     console.log('delete button');
                 })
             ],
-            () => { node.isContextMenued = false },
-            () => { node.isContextMenued = true }
+            () => { node.isContextMenued = true },
+            () => { node.isContextMenued = false }
         );
     }
 
