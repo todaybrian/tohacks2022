@@ -26,10 +26,56 @@ class Graph {
         let lineElem = getEdgeLine(node1Id, node2Id);
         lineElem.remove();
     }
+    addNodeContextMenu(node) {
+        node.elem.oncontextmenu = (e) => {
+            node.isContextMenued = true;
+            e.preventDefault();
+
+            let ctxMenu = document.createElement('div');
+            ctxMenu.setAttribute('id', 'context_menu');
+            ctxMenu.style.left = `${e.pageX}px`;
+            ctxMenu.style.top = `${e.pageY}px`;
+
+            function exitMenu() {
+                ctxMenu.remove();
+                ctxExit.style.display = 'none';
+                node.isContextMenued = false;
+            }
+
+            function btnFunc(func) {
+                return () => {
+                    func();
+                    exitMenu();
+                }
+            }
+
+            let deleteBtn = document.createElement('button');
+            deleteBtn.innerText = "Delete";
+            deleteBtn.onclick = btnFunc(() => {
+                console.log('delete button clicked');
+            });
+            ctxMenu.appendChild(deleteBtn);
+
+            let doneBtn = document.createElement('button');
+            doneBtn.innerText = "Mark as done";
+            doneBtn.onclick = btnFunc(() => {
+                console.log('done button clicked');
+            });
+            ctxMenu.appendChild(doneBtn);
+
+            let ctxExit = document.getElementById("context_menu_exit");
+            ctxExit.style.display = 'inline';
+
+            ctxExit.onclick = exitMenu;
+
+            document.body.appendChild(ctxMenu);
+        }
+    }
 
     addNode(id, x=300, y=300, state=false) {
         this.nodes[id] = new Node(id, x, y);
         this.makeNodeDraggable(this.nodes[id]);
+        this.addNodeContextMenu(this.nodes[id]);
     }
 
     getNode(id) {
@@ -64,6 +110,11 @@ class Graph {
 
         function onDrag(e) {
             e.preventDefault();
+
+            if (node.isContextMenued) {
+                stopDrag();
+                return;
+            }
             
             let dx = node.x - e.clientX;
             let dy = node.y - e.clientY;
@@ -84,6 +135,10 @@ class Graph {
 
         function onMouseDown(e) {
             e.preventDefault();
+
+            if (node.isContextMenued) {
+                return;
+            }
 
             node.x = e.clientX;
             node.y = e.clientY;
