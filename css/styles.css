@@ -79,12 +79,16 @@ body {
     cursor: pointer;
 }
 
-#context_menu button:hover {
+#context_menu button:hover:not([disabled]) {
     text-decoration: underline;
 }
 
-#context_menu button:active {
+#context_menu button:active:not([disabled]) {
     background-color: #ccc;
+}
+
+#context_menu button:disabled {
+    cursor: not-allowed;
 }
 
 #context_menu_exit {

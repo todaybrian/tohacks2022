@@ -1,11 +1,13 @@
 class Button {
-    constructor(text, onClick) {
+    constructor(text, onClick, isValid = () => true) {
         if (typeof text === 'string' || text instanceof String) {
             this.textFunc = () => text;
         } else {
             this.textFunc = text;
         }
+        //this.text = text;
         this.onClick = onClick;
+        this.isValid = isValid;
     }
 
     get text() {
@@ -33,18 +35,22 @@ function addContextMenu(elem, buttons, before=() => {}, after=() => {}) {
             ctxExit.style.display = 'none';
         }
 
-        function addButton(innerText, onClick) {
+        function addButton(innerText, onClick, isValid) {
             let btn = document.createElement('button');
             btn.innerText = innerText;
-            btn.onclick = () => {
-                onClick(e);
-                exitMenu();
+            if (isValid) {
+                btn.onclick = () => {
+                    onClick(e);
+                    exitMenu();
+                }
+            } else {
+                btn.disabled = true;
             }
             ctxMenu.appendChild(btn);
         }
 
         for (const button of buttons) {
-            addButton(button.text, button.onClick);
+            addButton(button.text, button.onClick, button.isValid());
         }
 
         let ctxExit = document.getElementById("context_menu_exit");
