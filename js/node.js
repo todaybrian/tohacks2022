@@ -4,6 +4,7 @@ class Node {
         this.x = x;
         this.y = y;
         this._color = 'none';
+        this.isContextMenued = false;
     }
 
     get color() {
@@ -39,7 +40,7 @@ class Node {
         color.setAttribute('id', `node${this.id}_color`);
 
         color.onclick = () => {
-            let picker = document.getElementById('colorpicker');
+            let picker = document.getElementById('color_picker');
             picker.setAttribute('styles', 'display: inline');
         }
 
@@ -56,6 +57,7 @@ class Node {
                 this.elemColor.setAttribute('style', `display: none`);
             }
         }
+
 
         document.getElementById("nodes").appendChild(elem);
         this.color = this._color;

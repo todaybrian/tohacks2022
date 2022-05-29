@@ -47,6 +47,56 @@ body {
     color: black;
 }
 
+#color_picker {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 600px;
+    height: 200px;
+    border: 1px solid black;
+}
+
+#context_menu {
+    position: fixed;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    width: 150px;
+    /*height: 300px;*/
+    /*padding: 10px;*/
+    background-color: white;
+    border: 1px solid black;
+    z-index: 101;
+}
+
+#context_menu button {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+    background-color: white;
+    border: 0px;
+    cursor: pointer;
+}
+
+#context_menu button:hover {
+    text-decoration: underline;
+}
+
+#context_menu button:active {
+    background-color: #ccc;
+}
+
+#context_menu_exit {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
 .edge {
     stroke: black;
     stroke-width: 1;
