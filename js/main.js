@@ -8,7 +8,7 @@ g.addNode(2, 300, 230, false, 'Node 2', purple);
 g.addNode(3, 500, 230, false, 'Node 3', purple);
 g.addNode(4, 500, 280, false, 'Node 4', purple);
 g.addNode(5, 500, 430, false, 'Node 5', purple);
-g.addNode(6, 300, 430, false, 'Node 6 sdfkj sdlkfk la asjflj asljfjkl;akl;jaskl;fjlasdjflk', purple);
+g.addNode(6, 300, 430, false, 'Node 6', purple);
 
 g.addEdge(0, 1);
 g.addEdge(1, 2);
