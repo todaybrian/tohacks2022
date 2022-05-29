@@ -67,8 +67,7 @@ class Graph {
             let ctxExit = document.getElementById("context_menu_exit");
             ctxExit.style.display = 'inline';
 
-            ctxExit.onclick = () => {
-            };
+            ctxExit.onclick = exitMenu;
 
             document.body.appendChild(ctxMenu);
         }
