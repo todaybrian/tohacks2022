@@ -1,47 +1,95 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>title</title>
-        <link rel="stylesheet" href="./css/styles.css">
-    </head>
-    <body>
-        <div class = "sidebar">
-            <h1>
-                Modes
-            </h1>
-            <button class="button"><span>Add Node</span></button>
-            <button class="button"><span>Delete Node</span></button>
-            <button class="button"><span>Add Edge</span></button>
-            <button class="button"><span>Delete Edge</span></button>
-            <button class="button"><span>Pan</span></button>
-            <button class="button"><span>Add/Remove Completion</span></button>
+
+<head>
+    <title>title</title>
+
+    <link href="./css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css"> <!-- Font -->
+
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <link rel="stylesheet" href="css/coloris.min.css" />
+
+</head>
+
+<body x-data="{open_add_node: false}">
+    <div class="sidebar">
+        <h1>
+            Modes
+        </h1>
+        <button class="button" x-on:click="open_add_node = true"><span>Add Node</span></button>
+        <button class="button"><span>Delete Node</span></button>
+        <button class="button"><span>Add Edge</span></button>
+        <button class="button"><span>Delete Edge</span></button>
+        <button class="button"><span>Pan</span></button>
+        <button class="button"><span>Add/Remove Completion</span></button>
+    </div>
+    <!--<canvas id="canvas" width="800" height="800"></canvas>-->
+
+    <div id="nodes"></div>
+    <div id="color_picker"></div>
+    <div id="context_menu_exit"></div>
+
+    <svg id="svg" height="100%" width="100%" overflow="visible">
+        <defs>
+            <marker id="arrow" markerWidth="13" markerHeight="13" refX="2" refY="6" orient="auto">
+                <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+            </marker>
+        </defs>
+
+        <!--<polyline points="0,0 100,50 200,100" class="edge"/>-->
+    </svg>
+    <!-- Add Node-->
+    <div tabindex="-1" aria-hidden="true" x-show="open_add_node"
+        class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full h-full bg-black/30" id="add-node">
+        <div class="flex top-0 left-0 p-4 w-full h-full justify-center align-middle">
+            <div class=" max-w-3xl z-[999] m-auto ">
+                <div class="card">
+                    <div class="card-header">Add Node</div>
+                    <form action="javascript:void(0);" id="add_node_form">
+                        <div class="card-body">
+                            <label for="text">Text:</label>
+                            <input
+                                class="shadow rounded w-full mb-3 py-2 px-3 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                placeholder="Add text here" name="text">
+                            <label for="color">Color:</label>
+                            <input type="text" value="#80deea" data-coloris>
+                        </div>
+                        <div class="justify-end card-footer">
+                            <a href="#" class="btn btn-link btn-sm" name="cancel"
+                                x-on:click="open_add_node = false">Cancel</a>
+                            <button class="btn btn-light-primary btn-sm" name="addnode" type="submit"
+                                x-on:click="open_add_node = false">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <!--<canvas id="canvas" width="800" height="800"></canvas>-->
+    </div>
 
-        <div id="nodes"></div>
-        <div id="color_picker"></div>
-        <div id="context_menu_exit"></div>
+    <script src="js/queue.js"></script>
+    <script src="js/svg.js"></script>
+    <script src="js/context_menu.js"></script>
+    <script src="js/adj_list.js"></script>
+    <script src="js/node.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/coloris.min.js">
+    </script>
+    <script>
+        Coloris({
+            swatches: [
+                '#ffeb3b',
+                '#aeea00',
+                '#80deea',
+                '#ff80ab',
+                '#ff9e00'
+            ]
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/kutty@latest/dist/kutty.min.js"></script>
 
-        <svg id="svg" height="100%" width="100%" overflow="visible">
-            <defs>
-                <marker id="arrow" markerWidth="13" markerHeight="13" refX="2" refY="6"
-                    orient="auto">
-                    <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
-                </marker>
-            </defs>
-    
-            <!--<polyline points="0,0 100,50 200,100" class="edge"/>-->
-        </svg>
+</body>
 
-        
-        
-    
-        <script src="js/queue.js"></script>
-        <script src="js/svg.js"></script>
-        <script src="js/context_menu.js"></script>
-        <script src="js/adj_list.js"></script>
-        <script src="js/node.js"></script>
-        <script src="js/graph.js"></script>
-        <script src="js/main.js"></script>
-    </body>
 </html>

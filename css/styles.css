@@ -1,11 +1,3 @@
-* {
-    font-family: monospace
-}
-
-body {
-    margin: 0px;
-}
-
 #nodes {
     position: fixed;
     top: 0;
@@ -79,16 +71,12 @@ body {
     cursor: pointer;
 }
 
-#context_menu button:hover:not([disabled]) {
+#context_menu button:hover {
     text-decoration: underline;
 }
 
-#context_menu button:active:not([disabled]) {
+#context_menu button:active {
     background-color: #ccc;
-}
-
-#context_menu button:disabled {
-    cursor: not-allowed;
 }
 
 #context_menu_exit {
@@ -155,3 +143,9 @@ body {
     z-index: 5;
     text-align: center;
 }
+
+.clr-field button {
+    width: 100% !important;
+    height: 100%;
+    border-radius: 5px;
+  }
