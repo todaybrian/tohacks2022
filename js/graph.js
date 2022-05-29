@@ -59,7 +59,8 @@ class Graph {
         }
     }
 
-    promptAddNode(x = 400, y = 400, initialText = '', dependencyNode = undefined) {
+    promptAddNode(x = 400, y = 400, initialText = '', dependencyNode = undefined,
+            editNode = undefined) {
         const colors = ['#a873ff', '#697afa', '#fc7c7c', '#ffea73', '#9cff8f'];
         const bgs = ['#d5bdfc', '#dee2ff', '#ffdede', '#fcf3bb', '#e2ffde'];
 
@@ -77,8 +78,14 @@ class Graph {
         }
 
         document.getElementById('add-node-submit').onclick = () => {
-            this.addNode(-1, x, y, false, textarea.value,
-                    textarea.style.backgroundColor);
+            if (typeof editNode !== 'undefined') {
+                let node = this.getNode(editNode);
+                node.displayText = textarea.value;
+                node.color = textarea.style.backgroundColor
+            } else {
+                this.addNode(-1, x, y, false, textarea.value,
+                        textarea.style.backgroundColor);
+            }
             if (typeof dependencyNode !== 'undefined') {
                 this.addEdge(dependencyNode, this.index);
             }
@@ -244,13 +251,14 @@ class Graph {
                 }),
 
                 new Button('Edit', () => {
-                    let new_text = prompt('Enter new text:', node.displayText);
-                    if (new_text != null) {
-                        node.displayText = new_text;
-                        node.elemDrag.innerText = new_text;
-                        g.onNodeDrag(node);
-                        console.log('edit button');
-                    }
+                    //let new_text = prompt('Enter new text:', node.displayText);
+                    //if (new_text != null) {
+                        //node.displayText = new_text;
+                        //node.elemDrag.innerText = new_text;
+                        //g.onNodeDrag(node);
+                        //console.log('edit button');
+                    //}
+                    this.promptAddNode(0, 0, node.displayText, undefined, node.id);
                 }),
 
                 new Button('Delete', () => {
