@@ -51,7 +51,7 @@ class Graph {
             document.getElementById('nodes'),
             [
                 new Button('Add task', (e) => {
-                    this.addNode(this.index++, e.pageX, e.pageY)
+                    this.addNode(this.index, e.pageX, e.pageY);
                 })
             ]
         );
@@ -80,7 +80,7 @@ class Graph {
     }
     
     addNode(id, x=300, y=300, state=false) {
-        this.nodes[id] = new Node(id, x, y);
+        this.nodes[id] = new Node(id, x, y, state, "Node " + id);
         this.makeNodeDraggable(this.nodes[id]);
         this.addNodeContextMenu(this.nodes[id]);
     }
@@ -116,6 +116,9 @@ class Graph {
                     console.log('done button');
                 }),
                 new Button('Edit', () => {
+                    let new_text = prompt('Enter new text:', node.displayText);
+                    node.displayText = new_text;
+                    node.elemDrag.innerText = new_text;
                     console.log('edit button');
                 }),
                 new Button('Delete', () => {

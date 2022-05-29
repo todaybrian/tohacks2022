@@ -1,11 +1,13 @@
 class Node {
-    constructor(id, x, y, state) {
+    constructor(id, x, y, state, displayText) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.state = state;
         this._color = 'none';
         this.isContextMenued = false;
+        this._displayText = displayText;
+        console.log(displayText);
     }
 
     get color() {
@@ -22,6 +24,14 @@ class Node {
         }
     }
 
+    get displayText() {
+        return this._displayText ;
+    }
+
+    set displayText(displayText) {
+        this._displayText = displayText;
+    }
+
     createElem() {
         let elem = document.createElement('div');
 
@@ -33,7 +43,7 @@ class Node {
         let drag = document.createElement('div');
         drag.setAttribute('class', 'node_header');
         drag.setAttribute('id', `node${this.id}_drag`);
-        drag.innerText = `node ${this.id}`;
+        drag.innerText = this._displayText;
         elem.appendChild(drag);
 
         let color = document.createElement('div');
