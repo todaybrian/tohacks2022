@@ -13,6 +13,10 @@ class Node {
         return elem;
     }
 
+    get elemDrag() {
+        let elem = document.getElementById
+    }
+
     get midX() {
         return this.elem.offsetLeft + this.elem.offsetWidth/2;
     }
