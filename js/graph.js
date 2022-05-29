@@ -94,7 +94,6 @@ class Graph {
             let lineElem = getEdgeLine(parent.id, node.id);
             setEdgeLinePoints(lineElem, parent.midX, parent.midY, node.midX, node.midY);
         }
-        console.log(`node${node.id}_drag`);
     }
 
     makeNodeDraggable(node) {
